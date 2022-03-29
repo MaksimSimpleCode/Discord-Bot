@@ -58,7 +58,7 @@ namespace Bot_Vasiliy
                     case "!case":
                         {
                             var priceCase=ParserCase.GetNameCase("https://steamcommunity.com/market/listings/730/Chroma%202%20Case",
-                                ".//div[@class='market_commodity_orders_block']//span[contains(@class,'market_commodity_orders_header_promote')]");
+                                "//div[@class='market_commodity_orders_header_promote']"); ////span[contains(@class,'market_commodity_orders_header_promote')]
 
                             msg.Channel.SendMessageAsync($"Цена на Охотничий оружейный кейс: {priceCase}");
                         }
