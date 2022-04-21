@@ -1,13 +1,17 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Bot_Vasiliy
 {
     class Program
     {
+       
+
         DiscordSocketClient client;
         static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
@@ -15,11 +19,21 @@ namespace Bot_Vasiliy
 
         private async Task MainAsync()
         {
+
             client = new DiscordSocketClient();
             client.MessageReceived += CommandsHandler;
             client.Log += Log;
 
-            var token = "OTUyMTA1MzQxMzQ3MzE1NzUy.YixLMg.DUo3B5G0wEE5B7Ggf7Es56OrrrM";
+            var builder = new ConfigurationBuilder();
+            // установка пути к текущему каталогу
+            string path = @"A:\Programming\C#\Projects\Discord-Bot\Bot-Vasiliy";
+            builder.SetBasePath(path);
+            // получаем конфигурацию из файла appsettings.json
+            builder.AddJsonFile("appsettings.json");
+            // создаем конфигурацию
+            var config = builder.Build();
+            // получаем строку подключения
+            string token = config.GetConnectionString("DefaultConnection");
 
             await client.LoginAsync(Discord.TokenType.Bot,token);
             await client.StartAsync();
