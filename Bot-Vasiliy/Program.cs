@@ -25,14 +25,10 @@ namespace Bot_Vasiliy
             client.Log += Log;
 
             var builder = new ConfigurationBuilder();
-            // установка пути к текущему каталогу
-            string path = @"A:\Programming\C#\Projects\Discord-Bot\Bot-Vasiliy";
+            string path = Directory.GetCurrentDirectory();
             builder.SetBasePath(path);
-            // получаем конфигурацию из файла appsettings.json
             builder.AddJsonFile("appsettings.json");
-            // создаем конфигурацию
             var config = builder.Build();
-            // получаем строку подключения
             string token = config.GetConnectionString("DefaultConnection");
 
             await client.LoginAsync(Discord.TokenType.Bot,token);
